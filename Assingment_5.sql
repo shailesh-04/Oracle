@@ -6,7 +6,7 @@
   SELECT * FROM EMP WHERE  DEPNO = 30 AND JOB IN ('Clerk','Manager');
   ------------------------------------------------------------------
 --[03] List the details of the employees who are not getting commission.
-	SELECT * FROM EMP WHERE  COMM = 0 OR COMM IS NULL;
+  SELECT * FROM EMP WHERE  COMM = 0 OR COMM IS NULL;
   ------------------------------------------------------------------
 --[04] List the details of the employees which have ‘R’ or ‘r’ followed by ‘s’ or ‘S’ in their name.
   SELECT * FROM EMP UPPER WHERE  ENAME LIKE  'A%'  OR ENAME LIKE  'S%' ;
