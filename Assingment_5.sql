@@ -1,3 +1,4 @@
+--https://github.com/shailesh-04
 --================= Assingment 5 ===========
 --[01] List all information about those employees whose earning at least 1000 and are either clerk or salesman.
   SELECT * FROM EMP WHERE SAL >= 1000 AND JOB IN ('Clerk','Manager');
@@ -9,6 +10,12 @@
   SELECT * FROM EMP WHERE  COMM = 0 OR COMM IS NULL;
   ------------------------------------------------------------------
 --[04] List the details of the employees which have ‘R’ or ‘r’ followed by ‘s’ or ‘S’ in their name.
+	--====================================================
+	SELECT * FROM EMP WHERE ENAME LIKE '%A';
+	SELECT * FROM EMP WHERE ENAME LIKE 'A%';
+	SELECT * FROM EMP WHERE ENAME LIKE '%s%';
+	SELECT * FROM EMP WHERE ENAME LIKE '__A%';
+	--====================================================
   SELECT * FROM EMP UPPER WHERE  ENAME LIKE  'A%'  OR ENAME LIKE  'S%' ;
 ------------------------------------------------------------------
 --[05] List all the employees whose earning is in the list followed and whose name starts with ‘A’ or ‘a’. Salary: 1250, 1150, 950, 2975, 5000, 3000, 10000.
@@ -16,9 +23,13 @@
   ------------------------------------------------------------------
   
 --[06] List all employees whose ‘HIREDATE’ year between 1981 and 1987 with initial character of name in uppercase and remaining characters in lowercase.
-  SELECT * FROM EMP WHERE HIREDATE >= HIREDATE LIKE '1981%' AND HIREDATE <= HIREDATE LIKE '2020%';
+  SELECT * FROM EMP WHERE HIREDATE >= '1-JAN-1981' AND HIREDATE <= '31-DEC-1987' AND ENAME=INITCAP(ENAME);
+  SELECT * FROM EMP WHERE HIREDATE BETWEEN '1-JAN-1981' AND '31-DEC-1987' AND ENAME=INITCAP(ENAME);
+	--INITCAP(ENAME)=> print first capital later 
+  ------------------------------------------------------------------
 --[07] Find the number of employees working in department inputted by user.
-  SELECT * FROM EMP WHERE DEP = 'USER';
+  SELECT COUNT(DEPTNO) FROM EMP WHERE DEPTNO = &DEPTNO;
+  ------------------------------------------------------------------
 --[08] Calculate number of employees holding different jobs in different departments.
  
 --[09] Calculate the number of employees holding different jobs in different departments.
