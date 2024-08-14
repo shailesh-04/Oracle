@@ -31,24 +31,31 @@
   SELECT COUNT(DEPTNO) FROM EMP WHERE DEPTNO = &DEPTNO;
    
 --[08] Calculate number of employees holding different jobs in different departments.
- SELECT 
-    ID, 
-    JOB, 
-    COUNT(ID) AS select * from
-FROM 
-    employees
-GROUP BY 
-    department_id, 
-    job_title;
 
 --[09] Calculate the number of employees holding different jobs in different departments.
 --[10] Calculate the number of employees excluding president holding different job titles in different departments.
 --[11] Display all jobs in different departments each have more than two employees with that job titles.
 --[12] Find all the departments that have at least two clerks.
+ 
 --[13] Determine average annual salary per department excluding the manager and  president.
+ SELECT DEPTNO, AVG(SAL*12)"ANUAL",COUNT(*)"COUNT" FROM EMP
+	WHERE JOB NOT IN ('MANAGER','PRESIDENT') 
+	GROUP BY DEPTNO ;
+
+	--MUST USE ANY COLUM NAME SAME NAME GROU BY AND AFTER SELECT.
+	--AND THE BUILD FUNCTION NOT USE N GROUP BY
+	
 --[14] List employee job titles immediately followed by name.
+SELECT ENAME || ' - ' || JOB FROM EMP;
+
+	--CONCTINATION	
+
 --[15] List the department name as four letter code ordered by the department name.
+SELECT SUBSTR(DNAME,1,4)"CODE" FROM DEPT ORDER BY DNAME;
+
 --[16] Find out the name of hiredate of the last person hired.
+SELECT ENAME,HIREDATE FROM EMP WHERE HIREDATE = (SELECT MAX(HIREDATE) FROM EMP);
+
 --[17] Decode deptno into dept name from dept table.
 --[18] List all last characters from the position of character ‘A’ or ‘a’ in ename.
 --[19] Find names of the employees who are working in sales department.
