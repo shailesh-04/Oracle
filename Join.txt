@@ -1,0 +1,18 @@
+========JOIN========
+-> one more table data select in single query is called JOIN.
+-> has 3 type :
+1. inner join
+=======================
+~thita style
+SELECT EMP.ENAME,DEPT.DNAME FROM EMP,DEPT 
+	WHERE EMP.DEPTNO = DEPT.DEPTNO;
+~ansi
+SELECT EMP.ENAME,DEPT.DNAME FROM EMP
+	INNER JOIN DEPT ON EMP.DEPTNO = DEPT.DEPTNO;
+-----------------------
+2. outer join
+-left,
+-right,
+-full
+3. cross
+4. soft

@@ -47,20 +47,30 @@
 	
 --[14] List employee job titles immediately followed by name.
 SELECT ENAME || ' - ' || JOB FROM EMP;
-
-	--CONCTINATION	
+--CONCTINATION	
 
 --[15] List the department name as four letter code ordered by the department name.
 SELECT SUBSTR(DNAME,1,4)"CODE" FROM DEPT ORDER BY DNAME;
 
 --[16] Find out the name of hiredate of the last person hired.
-SELECT ENAME,HIREDATE FROM EMP WHERE HIREDATE = (SELECT MAX(HIREDATE) FROM EMP);
+	SELECT ENAME,HIREDATE FROM EMP WHERE HIREDATE = (SELECT MAX(HIREDATE) FROM EMP);
 
 --[17] Decode deptno into dept name from dept table.
+	SELECT ENAME,DECODE(DEPTNO,10,'MNG',20,'QWE',30,'SAL') FROM EMP;
+
 --[18] List all last characters from the position of character ‘A’ or ‘a’ in ename.
 --[19] Find names of the employees who are working in sales department.
+
 --[20] List name, job and salary of the employees in department 20 who have the same job as that of employees in ‘SALES’ and ‘HRD’.
+SELECT ENAME ,JOB,SAL FROM EMP 
+	WHERE DEPTNO = 20 AND  JOB IN (	SELECT EMP.JOB FROM  EMP,DEPT 
+	WHERE DEPT.DEPTNO = EMP.DEPTNO AND (DNAME='SALESMAN' OR DNAME='ACCOUNTING'));
+
+
 --[22] Find out the highest paid employee in each department and display their name and deptno.
+
+	SELECT ENAME,SAL FROM EMP WHERE SAL IN (SELECT MIN(SAL) FROM EMP GROUP BY DEPTNO);
+	
 --[23] List employee who have the same job as that of Mr. Jones and who have more salary than any one employee of Dept 30.
 --[24] list the employee name , deptno and dept location of all clerks.
 --[25] List the location of all departments and the employees working at those location.
