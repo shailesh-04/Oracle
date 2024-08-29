@@ -1,6 +1,7 @@
 --https://github.com/shailesh-04
 --================= Assingment 5 ===========
 --[01] List all information about those employees whose earning at least 1000 and are either clerk or salesman.
+
   SELECT * FROM EMP WHERE SAL >= 1000 AND JOB IN ('Clerk','Manager');
    
 --[02] List all employees of dept no. 30 who are manager, salesman or clerk.
@@ -73,6 +74,7 @@ SELECT ENAME ,JOB,SAL FROM EMP
 	
 --[23] List employee who have the same job as that of Mr. Jones and who have more salary than any one employee of Dept 30.
 --[24] list the employee name , deptno and dept location of all clerks.
+ 	SELECT * FROM EMP WHERE JOB = 'CLERKS';
 --[25] List the location of all departments and the employees working at those location.
 --[26] list the employees who are earning more than their managers.
 --[27] list all character from the position of character ‘A’ or ‘a’ in empname.

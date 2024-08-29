@@ -1,0 +1,216 @@
+======================== ASSINGMENT 5 ===========================
+
+Here's the SQL code to solve each of your queries based on the `EMP` table structure provided:
+
+### 01. Employees earning at least 1000 and are either clerks or salesmen
+```sql
+SELECT * 
+FROM EMP 
+WHERE SAL >= 1000 
+  AND JOB IN ('CLERK', 'SALESMAN');
+```
+
+### 02. Employees of department 30 who are managers, salesmen, or clerks
+```sql
+SELECT * 
+FROM EMP 
+WHERE DEPTNO = 30 
+  AND JOB IN ('MANAGER', 'SALESMAN', 'CLERK');
+```
+
+### 03. Employees who are not getting commission
+```sql
+SELECT * 
+FROM EMP 
+WHERE COMM IS NULL;
+```
+
+### 04. Employees with 'R' or 'r' followed by 's' or 'S' in their name
+```sql
+SELECT * 
+FROM EMP 
+WHERE ENAME LIKE '%R_S%' 
+   OR ENAME LIKE '%r_S%' 
+   OR ENAME LIKE '%R_s%' 
+   OR ENAME LIKE '%r_s%';
+```
+
+### 05. Employees whose salary is in a specific list and name starts with 'A' or 'a'
+```sql
+SELECT * 
+FROM EMP 
+WHERE SAL IN (1250, 1150, 950, 2975, 5000, 3000, 10000) 
+  AND (ENAME LIKE 'A%' OR ENAME LIKE 'a%');
+```
+
+### 06. Employees hired between 1981 and 1987 with proper name casing
+```sql
+SELECT INITCAP(ENAME) AS ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO 
+FROM EMP 
+WHERE EXTRACT(YEAR FROM HIREDATE) BETWEEN 1981 AND 1987;
+```
+
+### 07. Number of employees working in a user-input department
+```sql
+SELECT COUNT(*) AS NumberOfEmployees 
+FROM EMP 
+WHERE DEPTNO = &user_input;
+```
+
+### 08. Number of employees holding different jobs in different departments
+```sql
+SELECT DEPTNO, JOB, COUNT(*) AS NumberOfEmployees 
+FROM EMP 
+GROUP BY DEPTNO, JOB;
+```
+
+### 09. Same as 08 (duplicate query in description)
+```sql
+SELECT DEPTNO, JOB, COUNT(*) AS NumberOfEmployees 
+FROM EMP 
+GROUP BY DEPTNO, JOB;
+```
+
+### 10. Number of employees excluding president holding different job titles in different departments
+```sql
+SELECT DEPTNO, JOB, COUNT(*) AS NumberOfEmployees 
+FROM EMP 
+WHERE JOB != 'PRESIDENT' 
+GROUP BY DEPTNO, JOB;
+```
+
+### 11. Jobs in different departments each having more than two employees with that job title
+```sql
+SELECT DEPTNO, JOB 
+FROM EMP 
+GROUP BY DEPTNO, JOB 
+HAVING COUNT(*) > 2;
+```
+
+### 12. Departments that have at least two clerks
+```sql
+SELECT DEPTNO 
+FROM EMP 
+WHERE JOB = 'CLERK' 
+GROUP BY DEPTNO 
+HAVING COUNT(*) >= 2;
+```
+
+### 13. Average annual salary per department excluding manager and president
+```sql
+SELECT DEPTNO, AVG(SAL * 12) AS AverageAnnualSalary 
+FROM EMP 
+WHERE JOB NOT IN ('MANAGER', 'PRESIDENT') 
+GROUP BY DEPTNO;
+```
+
+### 14. Employee job titles immediately followed by name
+```sql
+SELECT JOB || ' ' || ENAME AS JobTitleAndName 
+FROM EMP;
+```
+
+### 15. Department name as a four-letter code ordered by department name
+```sql
+SELECT SUBSTR(DNAME, 1, 4) AS DeptCode 
+FROM DEPT 
+ORDER BY DNAME;
+```
+
+### 16. Name of the hire date of the last person hired
+```sql
+SELECT ENAME, HIREDATE 
+FROM EMP 
+WHERE HIREDATE = (SELECT MAX(HIREDATE) FROM EMP);
+```
+
+### 17. Decode deptno into dept name from dept table
+```sql
+SELECT EMP.ENAME, EMP.DEPTNO, DEPT.DNAME 
+FROM EMP 
+JOIN DEPT ON EMP.DEPTNO = DEPT.DEPTNO;
+```
+
+### 18. All last characters from the position of character ‘A’ or ‘a’ in ename
+```sql
+SELECT SUBSTR(ENAME, INSTR(ENAME, 'A', 1, 1) + 1) AS AfterA 
+FROM EMP 
+WHERE INSTR(ENAME, 'A') > 0;
+```
+
+### 19. Names of the employees who are working in the sales department
+```sql
+SELECT ENAME 
+FROM EMP 
+WHERE DEPTNO = (SELECT DEPTNO FROM DEPT WHERE DNAME = 'SALES');
+```
+
+### 20. Name, job, and salary of employees in department 20 with the same job as in 'SALES' or 'HRD'
+```sql
+SELECT ENAME, JOB, SAL 
+FROM EMP 
+WHERE DEPTNO = 20 
+  AND JOB IN (SELECT DISTINCT JOB FROM EMP WHERE DEPTNO IN 
+             (SELECT DEPTNO FROM DEPT WHERE DNAME IN ('SALES', 'HRD')));
+```
+
+### 22. Highest-paid employee in each department
+```sql
+SELECT ENAME, DEPTNO, SAL 
+FROM EMP 
+WHERE (DEPTNO, SAL) IN (SELECT DEPTNO, MAX(SAL) 
+                        FROM EMP 
+                        GROUP BY DEPTNO);
+```
+
+### 23. Employees who have the same job as Mr. Jones and more salary than any one employee of Dept 30
+```sql
+SELECT * 
+FROM EMP 
+WHERE JOB = (SELECT JOB FROM EMP WHERE ENAME = 'JONES') 
+  AND SAL > ANY (SELECT SAL FROM EMP WHERE DEPTNO = 30);
+```
+
+### 24. Employee name, deptno, and dept location of all clerks
+```sql
+SELECT EMP.ENAME, EMP.DEPTNO, DEPT.LOC 
+FROM EMP 
+JOIN DEPT ON EMP.DEPTNO = DEPT.DEPTNO 
+WHERE EMP.JOB = 'CLERK';
+```
+
+### 25. Location of all departments and employees working at those locations
+```sql
+SELECT DEPT.LOC, EMP.ENAME 
+FROM DEPT 
+JOIN EMP ON DEPT.DEPTNO = EMP.DEPTNO;
+```
+
+### 26. Employees earning more than their managers
+```sql
+SELECT EMP1.ENAME, EMP1.SAL 
+FROM EMP EMP1 
+JOIN EMP EMP2 ON EMP1.MGR = EMP2.EMPNO 
+WHERE EMP1.SAL > EMP2.SAL;
+```
+
+### 27. All characters from the position of character ‘A’ or ‘a’ in empname
+```sql
+SELECT SUBSTR(ENAME, INSTR(ENAME, 'A', 1, 1)) AS AfterA 
+FROM EMP 
+WHERE INSTR(ENAME, 'A') > 0;
+```
+
+### 28. Name, job, and salary of employee in dept 20 with the same job as those in 'SALES' or 'HRD'
+```sql
+SELECT ENAME, JOB, SAL 
+FROM EMP 
+WHERE DEPTNO = 20 
+  AND JOB IN (SELECT JOB 
+              FROM EMP 
+              WHERE DEPTNO IN (SELECT DEPTNO 
+                               FROM DEPT 
+                               WHERE DNAME IN ('SALES', 'HRD')));
+```
+
+Feel free to run these queries in Oracle SQL, and they should give you the desired results.
