@@ -17,7 +17,7 @@
 	SELECT * FROM EMP WHERE ENAME LIKE '%s%';
 	SELECT * FROM EMP WHERE ENAME LIKE '__A%';
 	--====================================================
-  SELECT * FROM EMP UPPER WHERE  ENAME LIKE  'A%'  OR ENAME LIKE  'S%' ;
+  SELECT * FROM EMP UPPER WHERE  ENAME LIKE '%R%S%';
  
 --[05] List all the employees whose earning is in the list followed and whose name starts with ‘A’ or ‘a’. Salary: 1250, 1150, 950, 2975, 5000, 3000, 10000.
   SELECT * FROM EMP WHERE   SAL IN (1250, 1150, 950, 2975, 5454, 3600, 10000) AND ENAME LIKE  'S%' ;
@@ -32,7 +32,8 @@
   SELECT COUNT(DEPTNO) FROM EMP WHERE DEPTNO = &DEPTNO;
    
 --[08] Calculate number of employees holding different jobs in different departments.
-
+  SELECT DEPTNO,JOB,COUNT(*) FROM EMP 
+  GROUP BY DEPTNO,JOB;
 --[09] Calculate the number of employees holding different jobs in different departments.
 --[10] Calculate the number of employees excluding president holding different job titles in different departments.
 --[11] Display all jobs in different departments each have more than two employees with that job titles.
@@ -74,8 +75,18 @@ SELECT ENAME ,JOB,SAL FROM EMP
 	
 --[23] List employee who have the same job as that of Mr. Jones and who have more salary than any one employee of Dept 30.
 --[24] list the employee name , deptno and dept location of all clerks.
- 	SELECT * FROM EMP WHERE JOB = 'CLERKS';
 --[25] List the location of all departments and the employees working at those location.
+
+SELECT ENAME,DNAME,LOC FROM EMP,DEPT 
+	WHERE EMP.DEPTNO = DEPT.DEPTNO ORDER BY DNAME;
+
 --[26] list the employees who are earning more than their managers.
+--SELF JOIN QUERY
+	  SELECT E.ENAME,M.ENAME FROM EMP E,EMP M WHERE E.MGR = M.EMPNO ;
+-----------------
+ SELECT E.ENAME,M.ENAME FROM EMP E,EMP M WHERE E.MGR = M.EMPNO AND E.SAL >= M.SAL ORDER BY E.MRG ;
+
 --[27] list all character from the position of character ‘A’ or ‘a’ in empname.
+1. SELECT INSTR(ENAME,'A') FROM EMP;
+2.SELECT SUBSTR(ENAME,INSTR(ENAME,'A'),LENGTH (ENAME)) FROM EMP WHERE ENAME LIKE '%A%' ;
 --[28] Select name , job and salary of employee in dept 20 who have the same job as that of each in ‘SALES\’ or ‘HRD’.
