@@ -1,0 +1,11 @@
+[ 1 ] SELECT MOD(26,11) "ABSOLUTE" FROM DUAL;
+
+  ABSOLUTE
+----------
+         4
+
+[ 2 ] SELECT CEIL(15.7) "CEILING" FROM DUAL;
+
+   CEILING
+----------
+        16
