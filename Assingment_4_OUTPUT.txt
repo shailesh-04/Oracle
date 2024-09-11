@@ -3,9 +3,60 @@
   ABSOLUTE
 ----------
          4
-
+------------------------------------------
 [ 2 ] SELECT CEIL(15.7) "CEILING" FROM DUAL;
 
    CEILING
 ----------
-        16
+        16scott
+------------------------------------------
+[ 3 ] SELECT FLOOR(15.7) "FLOOR" FROM DUAL;
+
+     FLOOR
+----------
+        15
+------------------------------------------
+[ 4 ] SELECT ASCII('A') "ASCII" FROM DUAL;
+
+     ASCII
+----------
+        65
+
+------------------------------------------
+[ 5 ] SELECT CONCAT('SHAIELSH',CONCAT(' ','MAKAVANA')) "String" FROM DUAL;
+
+String
+-----------------
+SHAIELSH MAKAVANA
+------------------------------------------
+[ 6 ] SELECT COUNT(*) "TOTAL" FROM EMP;
+
+COUNT(DISTINCTJOB)
+------------------
+                 20
+------------------------------------------
+[ 7 ] SELECT COUNT(DISTINCT JOB) "JOB" FROM EMP;
+
+COUNT(DISTINCTJOB)
+------------------
+                 5
+------------------------------------------
+[ 8 ]  SELECT CURRENT_DATE FROM DUAL;
+
+CURRENT_D
+---------
+11-SEP-24
+------------------------------------------
+[ 9 ]  SELECT CURRENT_TIME FROM DUAL;
+SELECT CURRENT_TIME FROM DUAL
+       *
+ERROR at line 1:
+ORA-00904: "CURRENT_TIME": invalid identifier
+------------------------------------------
+[ 10 ]
+------------------------------------------
+[ 3 ]
+------------------------------------------
+[ 3 ]
+------------------------------------------
+[ 3 ]
