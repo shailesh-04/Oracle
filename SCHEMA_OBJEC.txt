@@ -1,0 +1,16 @@
+-- COPY TABLE
+CREATE TABLE TEST 
+
+
+--==========SYNONYM===========
+
+-- CREATE SYNONYM
+CREATE SYNONYM MYTEST FOR TEST;
+
+-- DROM
+DROP SYNONYM MYTEST;
+
+-- SYSTEM GRANT SYNONYM
+GRANT 
+--=============VIEW======================
+--
