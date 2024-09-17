@@ -34,7 +34,9 @@
 --[08] Calculate number of employees holding different jobs in different departments.
   SELECT DEPTNO,JOB,COUNT(*) FROM EMP 
   GROUP BY DEPTNO,JOB;
+
 --[09] Calculate the number of employees holding different jobs in different departments.
+	SELECT * FROM 
 --[10] Calculate the number of employees excluding president holding different job titles in different departments.
 --[11] Display all jobs in different departments each have more than two employees with that job titles.
 --[12] Find all the departments that have at least two clerks.
@@ -61,16 +63,17 @@ SELECT SUBSTR(DNAME,1,4)"CODE" FROM DEPT ORDER BY DNAME;
 	SELECT ENAME,DECODE(DEPTNO,10,'MNG',20,'QWE',30,'SAL') FROM EMP;
 
 --[18] List all last characters from the position of character ‘A’ or ‘a’ in ename.
+	SELECT ENAME FROM EMP UPPER WHERE ENAME LIKE 'A%';
+
 --[19] Find names of the employees who are working in sales department.
+	SELECT EMP.ENAME FROM EMP,DEPT WHERE DEPT.DNAME='SALES' AND EMP.DEPTNO = DEPT.DEPTNO ;
 
 --[20] List name, job and salary of the employees in department 20 who have the same job as that of employees in ‘SALES’ and ‘HRD’.
 SELECT ENAME ,JOB,SAL FROM EMP 
 	WHERE DEPTNO = 20 AND  JOB IN (	SELECT EMP.JOB FROM  EMP,DEPT 
 	WHERE DEPT.DEPTNO = EMP.DEPTNO AND (DNAME='SALESMAN' OR DNAME='ACCOUNTING'));
 
-
 --[22] Find out the highest paid employee in each department and display their name and deptno.
-
 	SELECT ENAME,SAL FROM EMP WHERE SAL IN (SELECT MIN(SAL) FROM EMP GROUP BY DEPTNO);
 	
 --[23] List employee who have the same job as that of Mr. Jones and who have more salary than any one employee of Dept 30.
