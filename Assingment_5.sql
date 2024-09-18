@@ -1,7 +1,6 @@
 --https://github.com/shailesh-04
 --================= Assingment 5 ===========
 --[01] List all information about those employees whose earning at least 1000 and are either clerk or salesman.
-
   SELECT * FROM EMP WHERE SAL >= 1000 AND JOB IN ('Clerk','Manager');
    
 --[02] List all employees of dept no. 30 who are manager, salesman or clerk.
@@ -12,12 +11,12 @@
    
 --[04] List the details of the employees which have ‘R’ or ‘r’ followed by ‘s’ or ‘S’ in their name.
 	--====================================================
-	SELECT * FROM EMP WHERE ENAME LIKE '%A';
-	SELECT * FROM EMP WHERE ENAME LIKE 'A%';
-	SELECT * FROM EMP WHERE ENAME LIKE '%s%';
-	SELECT * FROM EMP WHERE ENAME LIKE '__A%';
+	SELECT * FROM EMP WHERE ENAME LIKE '%A'; -- last char
+	SELECT * FROM EMP WHERE ENAME LIKE 'A%'; -- first char
+	SELECT * FROM EMP WHERE ENAME LIKE '%A%'; -- first and last 
+	SELECT * FROM EMP WHERE ENAME LIKE '__A%'; -- first 3 char
 	--====================================================
-  SELECT * FROM EMP UPPER WHERE  ENAME LIKE '%R%S%';
+  SELECT * FROM EMP UPPER WHERE  ENAME LIKE '%R%S%'; -- first char 'R' or 's' -- last char 'R' or 's'13:03 18-09-2024
  
 --[05] List all the employees whose earning is in the list followed and whose name starts with ‘A’ or ‘a’. Salary: 1250, 1150, 950, 2975, 5000, 3000, 10000.
   SELECT * FROM EMP WHERE   SAL IN (1250, 1150, 950, 2975, 5454, 3600, 10000) AND ENAME LIKE  'S%' ;
@@ -36,10 +35,17 @@
   GROUP BY DEPTNO,JOB;
 
 --[09] Calculate the number of employees holding different jobs in different departments.
-	SELECT * FROM 
+	SELECT DEPTNO,JOB,COUNT(JOB) FROM EMP GROUP BY DEPTNO,JOB;
+
 --[10] Calculate the number of employees excluding president holding different job titles in different departments.
+	SELECT DEPTNO,JOB,COUNT(JOB) FROM EMP WHERE JOB != 'CLERK' GROUP BY DEPTNO,JOB;
+
+
 --[11] Display all jobs in different departments each have more than two employees with that job titles.
+		SELECT DEPTNO,JOB,COUNT(JOB) FROM EMP GROUP BY DEPTNO,JOB HAVING COUNT(*) > 2;
+	
 --[12] Find all the departments that have at least two clerks.
+	SELECT DEPTNO,JOB,COUNT(JOB) FROM EMP WHERE JOB = 'CLERK' GROUP BY DEPTNO,JOB HAVING COUNT(*) > 2;	
  
 --[13] Determine average annual salary per department excluding the manager and  president.
  SELECT DEPTNO, AVG(SAL*12)"ANUAL",COUNT(*)"COUNT" FROM EMP
@@ -62,9 +68,12 @@ SELECT SUBSTR(DNAME,1,4)"CODE" FROM DEPT ORDER BY DNAME;
 --[17] Decode deptno into dept name from dept table.
 	SELECT ENAME,DECODE(DEPTNO,10,'MNG',20,'QWE',30,'SAL') FROM EMP;
 
---[18] List all last characters from the position of character ‘A’ or ‘a’ in ename.
-	SELECT ENAME FROM EMP UPPER WHERE ENAME LIKE 'A%';
 
+--[18] List all last characters from the position of character ‘A’ or ‘a’ in ename.
+
+--	SELECT ENAME FROM EMP UPPER WHERE ENAME LIKE 'A%';
+--	SELECT SUBSTR(ENAME,INSTR(ENAME,'A'),LENGTH(ENAME)) FROM EMP UPPER WHERE ENAME LIKE 'A%';
+	SELECT SUBSTR(ENAME,INSTR(UPPER(ENAME),'A'),LENGTH(ENAME)) FROM EMP WHERE UPPER(ENAME) LIKE '%A%';
 --[19] Find names of the employees who are working in sales department.
 	SELECT EMP.ENAME FROM EMP,DEPT WHERE DEPT.DNAME='SALES' AND EMP.DEPTNO = DEPT.DEPTNO ;
 
