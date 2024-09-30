@@ -86,9 +86,12 @@ SELECT ENAME ,JOB,SAL FROM EMP
 	SELECT ENAME,SAL FROM EMP WHERE SAL IN (SELECT MIN(SAL) FROM EMP GROUP BY DEPTNO);
 	
 --[23] List employee who have the same job as that of Mr. Jones and who have more salary than any one employee of Dept 30.
---[24] list the employee name , deptno and dept location of all clerks.
---[25] List the location of all departments and the employees working at those location.
+SELECT ENAME FROM EMP WHERE SAL > 3000 AND DEPTNO = 30;
 
+--[24] list the employee name , deptno and dept location of all clerks.
+	 SELECT E.ENAME,D.DEPTNO,D.LOC FROM EMP E,DEPT D WHERE D.DEPTNO = E.DEPTNO AND E.JOB = 'CLERK';
+
+--[25] List the location of all departments and the employees working at those location.
 SELECT ENAME,DNAME,LOC FROM EMP,DEPT 
 	WHERE EMP.DEPTNO = DEPT.DEPTNO ORDER BY DNAME;
 
@@ -99,6 +102,8 @@ SELECT ENAME,DNAME,LOC FROM EMP,DEPT
  SELECT E.ENAME,M.ENAME FROM EMP E,EMP M WHERE E.MGR = M.EMPNO AND E.SAL >= M.SAL ORDER BY E.MRG ;
 
 --[27] list all character from the position of character ‘A’ or ‘a’ in empname.
+
 1. SELECT INSTR(ENAME,'A') FROM EMP;
 2.SELECT SUBSTR(ENAME,INSTR(ENAME,'A'),LENGTH (ENAME)) FROM EMP WHERE ENAME LIKE '%A%' ;
+
 --[28] Select name , job and salary of employee in dept 20 who have the same job as that of each in ‘SALES\’ or ‘HRD’.

@@ -1,0 +1,40 @@
+-- [ 1 ] CREATE TABLE
+
+ CREATE TABLE STUDENT(
+	NUMBER NUMBER(3),
+	NAME VARCHAR2(20),
+	DOB DATE,
+	CITY VARCHAR(20),
+  	CONSTRAINT pk_STUDENT PRIMARY KEY (NUMBER)
+);
+
+To set a primary key in Oracle with a specific name, you can use the `ALTER TABLE` statement or define it when creating a table. Here’s how you can do both:
+
+### 1. Setting a Primary Key When Creating a Table
+
+You can define the primary key constraint while creating the table using the `CONSTRAINT` clause:
+
+```sql
+CREATE TABLE your_table_name (
+    id NUMBER,
+    name VARCHAR2(100),
+    CONSTRAINT pk_your_table_name PRIMARY KEY (id)
+);
+```
+
+### 2. Adding a Primary Key to an Existing Table
+
+If you already have a table and want to add a primary key constraint, you can use the `ALTER TABLE` statement:
+
+```sql
+ALTER TABLE your_table_name
+ADD CONSTRAINT pk_your_table_name PRIMARY KEY (id);
+```
+
+### Notes
+
+- Replace `your_table_name` with the name of your table.
+- Replace `pk_your_table_name` with your desired primary key constraint name.
+- Ensure that the column you are setting as the primary key does not contain duplicate values or NULLs.
+
+Let me know if you need further details or examples!
