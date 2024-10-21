@@ -1,4 +1,5 @@
 --https://github.com/shailesh-04
+
 --================= Assingment 5 ===========
 --[01] List all information about those employees whose earning at least 1000 and are either clerk or salesman.
   SELECT * FROM EMP WHERE SAL >= 1000 AND JOB IN ('Clerk','Manager');
@@ -42,7 +43,7 @@
 
 
 --[11] Display all jobs in different departments each have more than two employees with that job titles.
-		SELECT DEPTNO,JOB,COUNT(JOB) FROM EMP GROUP BY DEPTNO,JOB HAVING COUNT(*) > 2;
+	SELECT DEPTNO,JOB,COUNT(JOB) FROM EMP GROUP BY DEPTNO,JOB HAVING COUNT(*) > 2;
 	
 --[12] Find all the departments that have at least two clerks.
 	SELECT DEPTNO,JOB,COUNT(JOB) FROM EMP WHERE JOB = 'CLERK' GROUP BY DEPTNO,JOB HAVING COUNT(*) > 2;	
@@ -102,8 +103,8 @@ SELECT ENAME,DNAME,LOC FROM EMP,DEPT
  SELECT E.ENAME,M.ENAME FROM EMP E,EMP M WHERE E.MGR = M.EMPNO AND E.SAL >= M.SAL ORDER BY E.MRG ;
 
 --[27] list all character from the position of character ‘A’ or ‘a’ in empname.
-
 1. SELECT INSTR(ENAME,'A') FROM EMP;
 2.SELECT SUBSTR(ENAME,INSTR(ENAME,'A'),LENGTH (ENAME)) FROM EMP WHERE ENAME LIKE '%A%' ;
 
 --[28] Select name , job and salary of employee in dept 20 who have the same job as that of each in ‘SALES\’ or ‘HRD’.
+SELECT ENAME,JOB,SAL FROM EMP WHERE DEPTNO = 20 AND JOB IN ('MANAGER','ANALYST');

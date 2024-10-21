@@ -108,6 +108,10 @@ v. Any grade 2 and 3 employee working fro sales dept or operations dept joined i
 95. List the names of the emps who are getting the highest sal dept wise.
 96. List the emps whose sal is equal to the average of max and minimum
 97. List the no. of emps in each department where the no. is more than 3.
+SELECT DEPTNO,COUNT(*) FROM EMP GROUP;
 98. List the names of depts. Where atleast 3 are working in that department.
+SELECT * FROM EMP WHERE DEPTNO IN(SELECT DEPTNO FROM EMP GROUP BY DEPTNO HAVING COUNT(*) > 3);	
 99. List the managers whose sal is more than his employess avg salary.
+SELECT * FROM EMP WHERE JOB = 'MANAGER' AND SAL >= ( SELECT AVG(SAL) FROM EMP); 
+
 100. List the name, salary, comm. For those employees whose net pay is greater than or equal to any other employee salary of the company.
